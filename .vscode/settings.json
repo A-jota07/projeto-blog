@@ -1,0 +1,10 @@
+{
+  // Configurações para Django
+  "files.associations": {
+    "*.html": "django-html",
+    "*.htm": "django-html"
+  },
+  "emmet.includeLanguages": {
+    "django-html": "html"
+  }
+}
