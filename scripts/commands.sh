@@ -5,6 +5,6 @@ set -e
 
 
 wait_psql.sh
-coolectstatic.sh
+collectstatic.sh
 migrate.sh
 runserver.sh
