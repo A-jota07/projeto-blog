@@ -1,5 +1,6 @@
 import string
 from random import SystemRandom
+
 from django.utils.text import slugify
 
 
@@ -9,7 +10,7 @@ def random_latters(k=5):
         k=k
     ))
     
-def slugfy_new(text, k=5):
+def slugify_new(text, k=5):
     return slugify(text) + '-' + random_latters(k)
     
     
