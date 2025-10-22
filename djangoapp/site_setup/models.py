@@ -14,7 +14,7 @@ class MenuLink(models.Model):
     
     site_setup = models.ForeignKey(
         'SiteSetup', on_delete=models.CASCADE, blank=True, null=True, 
-        default=None
+        default=None, related_name='menulink_set'
     )
 
     
