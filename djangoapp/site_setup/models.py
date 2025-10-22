@@ -37,7 +37,7 @@ class SiteSetup(models.Model):
     
     favicon = models.ImageField(
         upload_to='assets/favicon/%Y/%m/',
-        blank=True, default='', validators=[validate_png]
+        blank=True, default='', validators=[validate_png],
     )
     
     def save(self, *args, **kwargs):
