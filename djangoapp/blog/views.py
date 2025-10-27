@@ -68,7 +68,7 @@ def tag(request, slug):
     )
 
 def search(request):
-    search_value = 'Qualquer'
+    search_value = request.GET.get('search', '')
     
     posts = (Post.objects.get_published().filter(
             Q(title__icontains=search_value) | 
@@ -82,6 +82,7 @@ def search(request):
         'blog/pages/index.html',
         {
             'page_obj': posts,
+            'search_value': search_value,
         }
     )
 
