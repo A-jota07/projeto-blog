@@ -68,7 +68,7 @@ def tag(request, slug):
     )
 
 def search(request):
-    search_value = request.GET.get('search', '')
+    search_value = request.GET.get('search', '').strip()
     
     posts = (Post.objects.get_published().filter(
             Q(title__icontains=search_value) | 
