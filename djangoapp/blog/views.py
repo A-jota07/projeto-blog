@@ -7,7 +7,7 @@ from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.http import Http404
 from django.shortcuts import redirect, render
-from django.views.generic import ListView, DeleteView
+from django.views.generic import ListView, DetailView
 
 PER_PAGE = 9
 
@@ -136,7 +136,7 @@ class SearchListView(PostListView):
         return super().get(request, *args, **kwargs)
         
 
-class PageDetailView(DeleteView):
+class PageDetailView(DetailView):
     model = Page
     template_name = 'blog/pages/page.html'
     slug_field = 'slug'
@@ -154,19 +154,20 @@ class PageDetailView(DeleteView):
         return super().get_queryset().filter(is_published=True)
 
 
-def post(request, slug):
-    post_obj = Post.objects.get_published().filter(slug=slug).first()
-
-    if post_obj is None:
-        raise Http404()
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/pages/post.html'
+    context_object_name = 'post'
     
-    page_title = f'{post_obj.title} - Página - '
-    
-    return render(
-        request,
-        'blog/pages/post.html',
-        {
-            'post': post_obj,
+    def get_context_data(self, **kwargs: Any):
+        ctx = super().get_context_data(**kwargs)
+        post = self.get_object()
+        page_title = f'{post.title} - Post - '
+        ctx.update({
             'page_title': page_title,
         }
     )
+        return ctx
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return super().get_queryset().filter(is_published=True)
